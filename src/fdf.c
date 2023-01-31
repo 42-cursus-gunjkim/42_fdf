@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:25:28 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/30 22:46:08 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 16:02:29 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,20 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 // {
 // }
 
-int	var_init(t_vars *var, const char *path)
+int	var_init(t_vars *var, t_data *img, const char *path)
 {
 	map_init(path, var);
 	var->mlx = mlx_init();
 	var->win = mlx_new_window(var->mlx, 1920, 1080, "Hello world!");
+	img->img = mlx_new_image(var->mlx, 1920, 1080);
+	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->len), &(img->endian));
+	var->data = img;
 	return (0);
+}
+
+void	check_leak(void)
+{
+	system("leaks --list -- a.out");
 }
 
 int	main(int argc, char *argv[])
@@ -39,11 +47,10 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		error_and_exit("FDF needs only one file");
-	var_init(&var, argv[1]);
-	img.img = mlx_new_image(var.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.len, &img.endian);
-	var.data = &img;
+	var_init(&var, &img, argv[1]);
 	// mlx_loop_hook(var.mlx, render, &var);
-	mlx_loop(var.mlx);
+	free(var.map);
+	atexit(check_leak);
+	//mlx_loop(var.mlx);
 	return (0);
 }

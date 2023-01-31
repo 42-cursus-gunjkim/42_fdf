@@ -14,7 +14,7 @@ OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./mlx
-	$(MAKE) -C ./libft
+	$(MAKE) -C ./libft bonus
 	mv ./mlx/libmlx.dylib ./libmlx.dylib
 	$(CC) $(OBJS) -L./libft -lft -L. -lmlx -framework AppKit -o $(NAME)
 
@@ -26,9 +26,11 @@ test: $(OBJS)
 
 clean:
 	$(MAKE) -C ./mlx clean
+	$(MAKE) -C ./libft clean
 	rm -f $(OBJS)
 
 fclean: clean
+	$(MAKE) -C ./libft fclean
 	rm -f $(NAME) libmlx.dylib
 	
 re: fclean all
