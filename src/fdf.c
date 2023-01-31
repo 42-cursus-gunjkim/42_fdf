@@ -6,23 +6,11 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:25:28 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/31 16:02:29 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 18:53:12 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->len + x * (data->bpp / 8));
-	*(unsigned int *)dst = color;
-}
-
-// int	render(t_vars *vars, t_data *img)
-// {
-// }
 
 int	var_init(t_vars *var, t_data *img, const char *path)
 {
@@ -35,11 +23,6 @@ int	var_init(t_vars *var, t_data *img, const char *path)
 	return (0);
 }
 
-void	check_leak(void)
-{
-	system("leaks --list -- a.out");
-}
-
 int	main(int argc, char *argv[])
 {
 	t_vars	var;
@@ -48,9 +31,9 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		error_and_exit("FDF needs only one file");
 	var_init(&var, &img, argv[1]);
-	// mlx_loop_hook(var.mlx, render, &var);
+	render(&var);
+	//mlx_loop_hook(var.mlx, render, &var);
 	free(var.map);
-	atexit(check_leak);
-	//mlx_loop(var.mlx);
+	mlx_loop(var.mlx);
 	return (0);
 }

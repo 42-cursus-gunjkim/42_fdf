@@ -6,11 +6,14 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:49:12 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/31 16:37:53 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/01/31 17:14:59 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "../libft/libft.h"
+#include "fcntl.h"
+#include "error.h"
+#include "struct.h"
 
 size_t	count_element(char **element)
 {
@@ -70,6 +73,7 @@ void	map_to_pixel(t_line	*line, t_vars *var)
 		var->map[line->i_h * var->map_w + i_w].x = i_w;
 		var->map[line->i_h * var->map_w + i_w].y = line->i_h;
 		var->map[line->i_h * var->map_w + i_w].z = ft_atoi(line->element[i_w]);
+		var->map[line->i_h * var->map_w + i_w].trgb = 0x00FF0000;
 		i_w++;
 	}
 }
