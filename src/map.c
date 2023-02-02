@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 21:49:12 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/31 17:14:59 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/02 17:54:36 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ void	map_to_pixel(t_line	*line, t_vars *var)
 	i_w = 0;
 	while (i_w < var->map_w)
 	{
-		var->map[line->i_h * var->map_w + i_w].x = i_w;
-		var->map[line->i_h * var->map_w + i_w].y = line->i_h;
-		var->map[line->i_h * var->map_w + i_w].z = ft_atoi(line->element[i_w]);
+		var->map[line->i_h * var->map_w + i_w].x = i_w * 50;
+		var->map[line->i_h * var->map_w + i_w].y = line->i_h * 50;
+		var->map[line->i_h * var->map_w + i_w].z = ft_atoi(line->element[i_w]) * 50;
 		var->map[line->i_h * var->map_w + i_w].trgb = 0x00FF0000;
 		i_w++;
 	}

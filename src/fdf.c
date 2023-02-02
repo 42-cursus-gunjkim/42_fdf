@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/30 13:25:28 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/31 18:53:12 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/02 18:24:15 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int	var_init(t_vars *var, t_data *img, const char *path)
 {
 	map_init(path, var);
 	var->mlx = mlx_init();
-	var->win = mlx_new_window(var->mlx, 1920, 1080, "Hello world!");
-	img->img = mlx_new_image(var->mlx, 1920, 1080);
+	var->win = mlx_new_window(var->mlx, 2180, 1080, "Hello world!");
+	img->img = mlx_new_image(var->mlx, 2180, 1080);
 	img->addr = mlx_get_data_addr(img->img, &(img->bpp), &(img->len), &(img->endian));
 	var->data = img;
 	return (0);
