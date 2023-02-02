@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = ./src/
 
-FILES = fdf.c map.c color.c error.c render.c math.c
+FILES = fdf.c map.c color.c error.c render.c
 
 SRCS = $(addprefix $(SRC_DIR), $(FILES))
 OBJS = $(SRCS:.c=.o)

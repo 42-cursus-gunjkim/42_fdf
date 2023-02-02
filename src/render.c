@@ -6,14 +6,14 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/31 16:39:13 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/02 17:52:01 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/02 19:13:53 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "color.h"
 #include "struct.h"
 #include "error.h"
-#include "math.h"
+#include <math.h>
 #include "../mlx/mlx.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -76,9 +76,9 @@ void	draw_line_low(t_pixel p0, t_pixel p1, t_data *data)
 	while (p0.x < p1.x)
 	{
 		if (p0.z != 0 && p1.z != 0)
-			my_mlx_pixel_put(data, p0.x, p0.y, 0x00FF00);
+			my_mlx_pixel_put(data, p0.x, p0.y, p0.trgb);
 		else
-			my_mlx_pixel_put(data, p0.x, p0.y, 0xFF0000);
+			my_mlx_pixel_put(data, p0.x, p0.y, p0.trgb);
 		if (d > 0)
 		{
 			p0.y = p0.y + y_step;
@@ -108,6 +108,35 @@ void	draw_line(t_pixel p0, t_pixel p1, t_data *data)
 	}
 }
 
+void	isomeric(t_vars *var)
+{
+	size_t	w_index;
+	size_t	h_index;
+	size_t	m_index;
+	int		tmp_x;
+	int		tmp_y;
+	int		tmp_z;
+
+	h_index = 0;
+	while (h_index < var->map_h)
+	{
+		w_index = 0;
+		m_index = h_index * var->map_w;
+		while (w_index < var->map_w)
+		{
+			tmp_x = var->map[m_index].x;
+			tmp_y = var->map[m_index].y;
+			tmp_z = var->map[m_index].z;
+			var->map[m_index].x = (int)((tmp_x - tmp_z)/sqrt(2)) + 300;
+			var->map[m_index].y = (int)((tmp_x + 2 * tmp_y + tmp_z) / sqrt(6));
+			var->map[m_index].trgb = tmp_z * 0xFFFFFF;
+			w_index++;
+			m_index++;
+		}
+		h_index++;
+	}
+}
+
 void	make_img(t_vars *var)
 {
 	size_t	w_index;
@@ -134,6 +163,7 @@ void	make_img(t_vars *var)
 
 int	render(t_vars *var)
 {
+	isomeric(var);
 	make_img(var);
 	mlx_put_image_to_window(var->mlx, var->win, var->data->img, 0, 0);
 	return (0);
