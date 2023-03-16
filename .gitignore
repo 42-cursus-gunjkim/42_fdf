@@ -1,0 +1,8 @@
+src_obj/
+src_bonus_obj/
+fdf
+libmlx.dylib
+libft/*.o
+libft/libft.a
+mlx/*.o
+.vscode
