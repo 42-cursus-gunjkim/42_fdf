@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   mlx_util.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/20 19:11:53 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/20 19:08:05 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/20 19:13:59 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/fdf.h"
 
-int	main(int argc, char *argv[])
+void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	t_map	*map;
-	void	*mlx;
-	void	*mlx_win;
+	char *dst;
 
-	if (argc != 2)
-		error_exit("Too few arguments");
-	map = parse_map(argv[1]);
-	return (0);
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
 }
+
+//두 픽셀이 주어졌을 때 라인을 그리는 함수

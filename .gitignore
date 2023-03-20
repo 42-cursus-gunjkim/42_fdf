@@ -1,4 +1,4 @@
-src_obj/
+obj/
 fdf
 libmlx.dylib
 libft/*.o

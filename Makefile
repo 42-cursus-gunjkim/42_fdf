@@ -9,7 +9,6 @@ INC_DIR = ./include/
 FILES = color.c error.c fdf.c parser.c util.c 
 SRCS = $(addprefix $(SRC_DIR), $(FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
-#OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./mlx
@@ -30,7 +29,8 @@ test: fclean
 clean:
 	$(MAKE) -C ./mlx clean
 	$(MAKE) -C ./libft fclean
-	rm -f libmlx.dylib
+	rm -rf $(NAME).dSYM
+	rm -rf libmlx.dylib
 	rm -rf $(OBJ_DIR)
 
 fclean: clean

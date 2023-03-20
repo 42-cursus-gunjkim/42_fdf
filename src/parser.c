@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/20 16:46:15 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/20 19:03:02 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,50 @@ int	get_num_element(char *line)
 
 	index = 0;
 	line_element = ft_split(line, ' ');
+	if (line_element == NULL)
+		error_exit("ft_split fail");
 	while (line_element[index] != NULL)
 		index++;
 	ft_double_free(line_element);
 	return (index);
 }
 
-int	map_valid_check(int map_fd, int *m_w, int *m_h)
+void	map_w_h_check(int map_fd, int *m_w, int *m_h)
 {
 	char	*line;
-	int		m_w_tmp;
 
 	line = get_next_line(map_fd);
 	*m_h = 0;
-	*m_w = -1;
+	*m_w = get_num_element(line);
 	while (line != NULL)
 	{
-		m_w_tmp = get_num_element(line);
 		free(line);
-		if (*m_w == -1)
-			*m_w = m_w_tmp;
-		if (*m_w != m_w_tmp)
-			return (0);
 		(*m_h)++;
 		line = get_next_line(map_fd);
 	}
-	return (1);
+}
+
+void	init_point(t_point *map, int m_w, int h_i, char **line_element)
+{
+	char	**element_comma;
+	int		w_i;
+
+	w_i = 0;
+	while (w_i < m_w)
+	{
+		element_comma = ft_split(line_element[w_i], ',');
+		if (element_comma == NULL)
+			error_exit("ft_split fail");
+		map[m_w * h_i + w_i].x = w_i;
+		map[m_w * h_i + w_i].y = h_i;	
+		map[m_w * h_i + w_i].z = ft_atoi(element_comma[0]);
+		if (element_comma[1] == NULL)
+			map[m_w * h_i + w_i].trgb = -1;
+		else
+			map[m_w * h_i + w_i].trgb = hex_to_int(element_comma[1]);
+		ft_double_free(element_comma);
+		w_i++;
+	}
 }
 
 void	map_to_point(t_point *map, int map_fd, int m_w, int m_h)
@@ -65,44 +83,31 @@ void	map_to_point(t_point *map, int map_fd, int m_w, int m_h)
 		line_element = ft_split(line, ' ');
 		if (line_element == NULL)
 			error_exit("ft_split fail");
-		w_i = 0;
-		while (w_i < m_w)
-		{
-			element_comma = ft_split(line_element[w_i], ',');
-			if (element_comma == NULL)
-				error_exit("ft_split fail");
-			map[m_w * h_i + w_i].x = w_i;
-			map[m_w * h_i + w_i].y = h_i;	
-			map[m_w * h_i + w_i].z = ft_atoi(element_comma[0]);
-			if (element_comma[1] == NULL)
-				map[m_w * h_i + w_i].trgb = -1;
-			else
-				map[m_w * h_i + w_i].trgb = hex_to_int(element_comma[1]);
-			ft_double_free(element_comma);
-			w_i++;
-		}
+		init_point(map, m_w, h_i, line_element);
 		free(line);
 		ft_double_free(line_element);
 		h_i++;
 	}
 }
 
-t_point	*parse_map(char *map_path)
+t_map	*parse_map(char *map_path)
 {
 	int		map_fd;
-	int		m_w;
-	int		m_h;
-	t_point	*map;
+	t_map	*map;
 
+	map = (t_map *)malloc(sizeof(t_map));
+	if (map == NULL)
+		error_exit("malloc fail");
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	if (!map_valid_check(map_fd, &m_w, &m_h))
-		error_exit("map is invalid");
-	map = (t_point *)malloc(sizeof(t_point) * m_w * m_h);
+	map_w_h_check(map_fd, &(map->m_w), &(map->m_h));
+	close(map_fd);
+	map->map = (t_point *)malloc(sizeof(t_point) * map->m_w * map->m_h);
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	map_to_point(map, map_fd, m_w, m_h);
+	map_to_point(map, map_fd, map->m_w, map->m_h);
+	close(map_fd);
 	return (map);
 }
