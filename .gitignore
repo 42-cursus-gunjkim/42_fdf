@@ -4,3 +4,4 @@ libmlx.dylib
 libft/*.o
 libft/libft.a
 .vscode
+.DS_Store

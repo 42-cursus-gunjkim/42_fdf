@@ -21,15 +21,16 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c
 	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
 	$(CC) $(CFLAG) -c $< -o $@
 
-test: $(OBJS)
+test: fclean
 	$(MAKE) -C ./mlx
+	$(MAKE) -C ./libft
 	mv ./mlx/libmlx.dylib ./libmlx.dylib
-	$(CC) -g $(OBJS) -L. -lmlx -framework AppKit -o $(NAME)
+	$(CC) -g $(SRCS) -L./libft -lft -L. -lmlx -framework AppKit -o $(NAME)
 
 clean:
 	$(MAKE) -C ./mlx clean
 	$(MAKE) -C ./libft fclean
-	rm libmlx.dylib
+	rm -f libmlx.dylib
 	rm -rf $(OBJ_DIR)
 
 fclean: clean
