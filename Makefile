@@ -1,38 +1,40 @@
 NAME = fdf
-CC = gcc
+CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = ./src/
+OBJ_DIR = ./obj/
+INC_DIR = ./include/
 
-FILES = fdf.c map.c color.c error.c render.c graphics.c line.c
-
+FILES = color.c error.c fdf.c parser.c util.c 
 SRCS = $(addprefix $(SRC_DIR), $(FILES))
-OBJS = $(SRCS:.c=.o)
-
-%.o: %.c
-	$(CC) $(CFLAGS) -Imlx -c $< -o $@
+OBJS = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
+#OBJS = $(SRCS:.c=.o)
 
 $(NAME): $(OBJS)
 	$(MAKE) -C ./mlx
-	$(MAKE) -C ./libft bonus
+	$(MAKE) -C ./libft
 	mv ./mlx/libmlx.dylib ./libmlx.dylib
 	$(CC) $(OBJS) -L./libft -lft -L. -lmlx -framework AppKit -o $(NAME)
+
+$(OBJ_DIR)%.o : $(SRC_DIR)%.c
+	@test -d $(OBJ_DIR) || mkdir -p $(OBJ_DIR)
+	$(CC) $(CFLAG) -c $< -o $@
 
 test: $(OBJS)
 	$(MAKE) -C ./mlx
 	mv ./mlx/libmlx.dylib ./libmlx.dylib
 	$(CC) -g $(OBJS) -L. -lmlx -framework AppKit -o $(NAME)
 
-
 clean:
 	$(MAKE) -C ./mlx clean
-	$(MAKE) -C ./libft clean
-	rm -f $(OBJS)
+	$(MAKE) -C ./libft fclean
+	rm libmlx.dylib
+	rm -rf $(OBJ_DIR)
 
 fclean: clean
-	$(MAKE) -C ./libft fclean
-	rm -f $(NAME) libmlx.dylib
+	rm -f $(NAME)
 	
 re: fclean all
 
-.phony : all clean fclean re
+.PHONY : all clean fclean re
