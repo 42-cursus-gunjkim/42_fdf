@@ -15,16 +15,6 @@
 
 # include <stdio.h>
 # include <stdlib.h>
-# include "../libft/libft.h"
-# include "../mlx/mlx.h"
-
-typedef struct s_data {
-	void	*img;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-}	t_data;
 
 void	error_exit(char *err_msg);
 

@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/20 19:03:02 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/21 23:00:12 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ t_map	*parse_map(char *map_path)
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	map_to_point(map, map_fd, map->m_w, map->m_h);
+	map_to_point(map->map, map_fd, map->m_w, map->m_h);
 	close(map_fd);
 	return (map);
 }
