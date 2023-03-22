@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:05:27 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/21 23:19:07 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/22 19:34:17 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,19 @@ typedef struct s_data {
 	int		endian;
 }	t_data;
 
+typedef struct s_pixel {
+	int	x;
+	int	y;
+	int	trgb;
+}	t_pixel;
+
 typedef struct s_camera {
-	double	f;
+	int		f;
+	int		w_w;
+	int		w_h;
 }	t_camera;
 
-void    my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void	draw_line(t_pixel p0, t_pixel p1, t_camera *var, t_data *data);
 
 #endif
