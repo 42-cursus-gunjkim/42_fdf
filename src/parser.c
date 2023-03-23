@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 17:38:36 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:28:23 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	init_point(t_point *map, int m_w, int h_i, char **line_element)
 {
 	char	**element_comma;
 	int		w_i;
+	int		z;
 
 	w_i = 0;
 	while (w_i < m_w)
@@ -58,11 +59,12 @@ void	init_point(t_point *map, int m_w, int h_i, char **line_element)
 			error_exit("ft_split fail");
 		map[m_w * h_i + w_i].x = w_i;
 		map[m_w * h_i + w_i].y = h_i;
-		map[m_w * h_i + w_i].z = ft_atoi(element_comma[0]);
-		if (element_comma[1] == NULL)
-			map[m_w * h_i + w_i].trgb = 0xFFFFFF;
-		else
+		z = ft_atoi(element_comma[0]);
+		map[m_w * h_i + w_i].z = z;
+		if (element_comma[1] != NULL)
 			map[m_w * h_i + w_i].trgb = hex_to_int(element_comma[1]);
+		else
+			map[m_w * h_i + w_i].trgb = -1;
 		ft_double_free(element_comma);
 		w_i++;
 	}

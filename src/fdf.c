@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 17:52:39 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 22:15:12 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,23 +34,20 @@ void	init_camera(void *mlx, t_map *map, t_camera *camera)
 
 int	main(int argc, char *argv[])
 {
-	t_map		map;
-	t_camera	camera;
-	t_data		data;
-	void		*mlx;
-	void		*mlx_win;
+	t_vars		var;
 
 	if (argc < 2)
 		error_exit("Too few arguments");
-	parse_map(&map, argv[1]);
-	mlx = mlx_init();
-	init_camera(mlx, &map, &camera);
-	data.img_plane = mlx_new_image(mlx, camera.win_w, camera.win_h);
-	data.addr = mlx_get_data_addr(data.img_plane, &(data.bpp), \
-	&(data.line_length), &(data.endian));
-	mlx_win = mlx_new_window(mlx, camera.win_w, camera.win_h, "fdf");
-	render(&map, &camera, &data);
-	mlx_put_image_to_window(mlx, mlx_win, data.img_plane, 0, 0);
-	mlx_loop(mlx);
+	parse_map(&(var.map), argv[1]);
+	var.mlx = mlx_init();
+	init_camera(var.mlx, &(var.map), &(var.camera));
+	var.data.img_plane = mlx_new_image(var.mlx, var.camera.win_w, var.camera.win_h);
+	var.data.addr = mlx_get_data_addr(var.data.img_plane, &(var.data.bpp), \
+	&(var.data.line_length), &(var.data.endian));
+	var.win = mlx_new_window(var.mlx, var.camera.win_w, var.camera.win_h, "fdf");
+	mlx_hook(var.win, 02, 1L << 0, key_hooks, &var);
+	//mlx_hook(var.win, 17, 1L << 5, red_cross_hook, &var);
+	mlx_loop_hook(var.mlx, render, &var);
+	mlx_loop(var.mlx);
 	return (0);
 }

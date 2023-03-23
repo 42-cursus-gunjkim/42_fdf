@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 18:10:43 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 21:10:28 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	update_var_high(int *d, t_pixel *tmp, int dx, int dy)
 	else
 		*d = *d + 2 * dx;
 	tmp->y = tmp->y + 1;
-	tmp->trgb = get_beauty(tmp->trgb);
 }
 
 void	update_var_low(int *d, t_pixel *tmp, int dx, int dy)
@@ -52,7 +51,6 @@ void	update_var_low(int *d, t_pixel *tmp, int dx, int dy)
 	else
 		*d = *d + 2 * dy;
 	tmp->x = tmp->x + 1;
-	tmp->trgb = get_beauty(tmp->trgb);
 }
 
 void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
@@ -63,6 +61,9 @@ void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 	int		d;
 
 	tmp = *p0;
+	tmp.r = get_r(tmp.trgb);
+	tmp.g = get_g(tmp.trgb);
+	tmp.b = get_b(tmp.trgb);
 	dx = p1->x - p0->x;
 	dy = p1->y - p0->y;
 	if (dx < 0)
@@ -74,6 +75,8 @@ void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 		if (is_scope(tmp.x, tmp.y, camera))
 			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
 		update_var_high(&d, &tmp, dx, dy);
+		if (p0->height != p1->height)
+			get_beauty(p0, p1, &tmp);
 	}
 }
 
@@ -85,6 +88,9 @@ void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 	int		d;
 
 	tmp = *p0;
+	tmp.r = get_r(tmp.trgb);
+	tmp.g = get_g(tmp.trgb);
+	tmp.b = get_b(tmp.trgb);
 	dx = p1->x - p0->x;
 	dy = p1->y - p0->y;
 	if (dy < 0)
@@ -96,6 +102,8 @@ void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 		if (is_scope(tmp.x, tmp.y, camera))
 			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
 		update_var_low(&d, &tmp, dx, dy);
+		if (p0->height != p1->height)
+			get_beauty(p0, p1, &tmp);
 	}
 }
 

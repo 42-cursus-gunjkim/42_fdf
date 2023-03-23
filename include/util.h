@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:27:32 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 18:03:10 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 20:26:29 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,5 @@
 # include "color.h"
 
 int	hex_to_int(char *hex);
-int	get_beauty(int trgb);
 
 #endif

@@ -9,6 +9,8 @@
 		"vector": "c",
 		"__locale": "c",
 		"fdf.h": "c",
-		"error.h": "c"
+		"error.h": "c",
+		"mlx.h": "c",
+		"hook.h": "c"
 	}
 }

@@ -6,7 +6,7 @@ SRC_DIR = ./src/
 OBJ_DIR = ./obj/
 INC_DIR = ./include/
 
-FILES = color.c error.c fdf.c parser.c util.c line.c mlx_utils.c graphic.c
+FILES = color.c error.c fdf.c parser.c util.c line.c mlx_utils.c graphic.c hook.c
 SRCS = $(addprefix $(SRC_DIR), $(FILES))
 OBJS = $(addprefix $(OBJ_DIR), $(FILES:.c=.o))
 
