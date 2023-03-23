@@ -41,9 +41,6 @@ int	main(int argc, char *argv[])
 	parse_map(&(var.map), argv[1]);
 	var.mlx = mlx_init();
 	init_camera(var.mlx, &(var.map), &(var.camera));
-	var.data.img_plane = mlx_new_image(var.mlx, var.camera.win_w, var.camera.win_h);
-	var.data.addr = mlx_get_data_addr(var.data.img_plane, &(var.data.bpp), \
-	&(var.data.line_length), &(var.data.endian));
 	var.win = mlx_new_window(var.mlx, var.camera.win_w, var.camera.win_h, "fdf");
 	mlx_hook(var.win, 02, 1L << 0, key_hooks, &var);
 	//mlx_hook(var.win, 17, 1L << 5, red_cross_hook, &var);
