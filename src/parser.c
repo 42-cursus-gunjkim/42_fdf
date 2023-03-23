@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/21 23:00:12 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:38:36 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	init_point(t_point *map, int m_w, int h_i, char **line_element)
 		if (element_comma == NULL)
 			error_exit("ft_split fail");
 		map[m_w * h_i + w_i].x = w_i;
-		map[m_w * h_i + w_i].y = h_i;	
+		map[m_w * h_i + w_i].y = h_i;
 		map[m_w * h_i + w_i].z = ft_atoi(element_comma[0]);
 		if (element_comma[1] == NULL)
-			map[m_w * h_i + w_i].trgb = -1;
+			map[m_w * h_i + w_i].trgb = 0xFFFFFF;
 		else
 			map[m_w * h_i + w_i].trgb = hex_to_int(element_comma[1]);
 		ft_double_free(element_comma);
@@ -90,24 +90,19 @@ void	map_to_point(t_point *map, int map_fd, int m_w, int m_h)
 	}
 }
 
-t_map	*parse_map(char *map_path)
+void	parse_map(t_map *map, char *map_path)
 {
 	int		map_fd;
-	t_map	*map;
 
-	map = (t_map *)malloc(sizeof(t_map));
-	if (map == NULL)
-		error_exit("malloc fail");
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	map_w_h_check(map_fd, &(map->m_w), &(map->m_h));
+	map_w_h_check(map_fd, &(map->map_w), &(map->map_h));
 	close(map_fd);
-	map->map = (t_point *)malloc(sizeof(t_point) * map->m_w * map->m_h);
+	map->map = (t_point *)malloc(sizeof(t_point) * map->map_w * map->map_h);
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	map_to_point(map->map, map_fd, map->m_w, map->m_h);
+	map_to_point(map->map, map_fd, map->map_w, map->map_h);
 	close(map_fd);
-	return (map);
 }

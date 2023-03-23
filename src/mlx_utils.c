@@ -1,21 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.h                                             :+:      :+:    :+:   */
+/*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 16:27:32 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 18:03:10 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/23 17:56:46 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#include "../include/fdf.h"
+#include "../include/color.h"
 
-# include "color.h"
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
 
-int	hex_to_int(char *hex);
-int	get_beauty(int trgb);
+	dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
+	*(unsigned int *)dst = color;
+}
 
-#endif
+int	is_scope(int x, int y, t_camera *camera)
+{
+	if (x < 0 || x >= camera->win_w)
+		return (0);
+	if (y < 0 || y >= camera->win_h)
+		return (0);
+	return (1);
+}
+

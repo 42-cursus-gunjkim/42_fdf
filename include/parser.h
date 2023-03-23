@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:17:03 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/22 19:10:10 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:14:44 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ typedef struct s_point
 typedef struct s_map
 {
 	t_point	*map;
-	int		m_w;
-	int		m_h;
+	int		map_w;
+	int		map_h;
 }	t_map;
 
-t_map	*parse_map(char *map_path);
+void	parse_map(t_map *map, char *map_path);
 
 #endif

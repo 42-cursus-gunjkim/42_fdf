@@ -3,24 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:05:27 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/22 19:34:17 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/23 17:54:01 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include "parser.h"
 # include "error.h"
 # include "../libft/libft.h"
 # include "../mlx/mlx.h"
+# include "parser.h"
 # include <math.h>
+# include <stdio.h>
+# include <stdlib.h>
+
+# define DEFAULT_W 1500
+# define DEFAULT_H 900
 
 typedef struct s_data {
-	void	*img;
+	void	*img_plane;
 	char	*addr;
 	int		bpp;
 	int		line_length;
@@ -35,11 +40,16 @@ typedef struct s_pixel {
 
 typedef struct s_camera {
 	int		f;
-	int		w_w;
-	int		w_h;
+	int		win_w;
+	int		win_h;
+	int		offset_w;
+	int		offset_h;
 }	t_camera;
 
+int		is_scope(int x, int y, t_camera *camera);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-void	draw_line(t_pixel p0, t_pixel p1, t_camera *var, t_data *data);
+void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
+t_pixel	*isomeric(t_map *map, t_camera *camera);
+void	render(t_map *map, t_camera *camera, t_data *i_plane);
 
 #endif

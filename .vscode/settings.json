@@ -1,6 +1,14 @@
 {
 	"files.associations": {
 		"math.h": "c",
-		"color.h": "c"
+		"color.h": "c",
+		"array": "c",
+		"iterator": "c",
+		"string": "c",
+		"string_view": "c",
+		"vector": "c",
+		"__locale": "c",
+		"fdf.h": "c",
+		"error.h": "c"
 	}
 }
