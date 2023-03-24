@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:02:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:55:04 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:58:22 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define HOOK_H
 
 # include "mlx_util.h"
-# include "exit.h"
 
 # define KEY_ESC 53
 # define KEY_LEFT 123
@@ -25,6 +24,7 @@
 # define ZOOM_OUT 31
 # define ROTATE_X 7
 # define ROTATE_Z 6
+# define ROTATE_Y 16
 
 int		key_hooks(int keycode, t_vars *vars);
 

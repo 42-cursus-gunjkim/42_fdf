@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:16:15 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:58:26 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 	int		d;
 
 	tmp = *p0;
-	tmp.r = get_r(tmp.trgb);
-	tmp.g = get_g(tmp.trgb);
-	tmp.b = get_b(tmp.trgb);
+	tmp.r = (tmp.trgb >> 16) & 0xFF;
+	tmp.g = (tmp.trgb >> 8) & 0xFF;
+	tmp.b = (tmp.trgb) & 0xFF;
 	dx = p1->x - p0->x;
 	dy = p1->y - p0->y;
 	if (dx < 0)
@@ -74,8 +74,10 @@ void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 		if (is_scope(tmp.x, tmp.y, camera))
 			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
 		update_var_high(&d, &tmp, dx, dy);
-		if (p0->height != p1->height)
-			get_beauty(p0, p1, &tmp);
+		if (p0->h != p1->h)
+			get_color(p0, p1, &tmp);
+		else
+			tmp.trgb = p0->trgb;
 	}
 }
 
@@ -87,9 +89,9 @@ void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 	int		d;
 
 	tmp = *p0;
-	tmp.r = get_r(tmp.trgb);
-	tmp.g = get_g(tmp.trgb);
-	tmp.b = get_b(tmp.trgb);
+	tmp.r = (tmp.trgb >> 16) & 0xFF;
+	tmp.g = (tmp.trgb >> 8) & 0xFF;
+	tmp.b = (tmp.trgb) & 0xFF;
 	dx = p1->x - p0->x;
 	dy = p1->y - p0->y;
 	if (dy < 0)
@@ -101,8 +103,10 @@ void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 		if (is_scope(tmp.x, tmp.y, camera))
 			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
 		update_var_low(&d, &tmp, dx, dy);
-		if (p0->height != p1->height)
-			get_beauty(p0, p1, &tmp);
+		if (p0->h != p1->h)
+			get_color(p0, p1, &tmp);
+		else
+			tmp.trgb = p0->trgb;
 	}
 }
 

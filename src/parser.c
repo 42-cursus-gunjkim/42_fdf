@@ -6,88 +6,92 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 13:25:03 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:58:28 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/parser.h"
-#include "../include/exit.h"
-#include "../libft/libft.h"
+#include "../include/mlx_util.h"
 
-int	get_num_element(char *line)
+int	get_hex_value(char c)
 {
 	int		index;
-	char	**line_element;
+	char	*hex;
 
+	hex = "0123456789ABCDEF";
 	index = 0;
-	line_element = ft_split(line, ' ');
-	if (line_element == NULL)
-		error_exit("ft_split fail");
-	while (line_element[index] != NULL)
-		index++;
-	ft_double_free(line_element);
-	return (index);
-}
-
-void	map_w_h_check(int map_fd, int *m_w, int *m_h)
-{
-	char	*line;
-
-	line = get_next_line(map_fd);
-	*m_h = 0;
-	*m_w = get_num_element(line);
-	while (line != NULL)
+	while (hex[index] != '\0')
 	{
-		free(line);
-		(*m_h)++;
-		line = get_next_line(map_fd);
+		if (hex[index] == c)
+			return (index);
+		index++;
 	}
+	return (-1);
 }
 
-void	init_point(t_point *map, int m_w, int h_i, char **line_element)
+int	hex_to_int(char *hex)
+{
+	int		t;
+	int		r;
+	int		g;
+	int		b;
+
+	t = 0;
+	r = get_hex_value(hex[2]) * 16 + get_hex_value(hex[3]);
+	g = get_hex_value(hex[4]) * 16 + get_hex_value(hex[5]);
+	b = get_hex_value(hex[6]) * 16 + get_hex_value(hex[7]);
+	return (r << 16 | g << 8 | b);
+}
+
+void	init_point(t_map *map, char **line_element)
 {
 	char	**element_comma;
 	int		w_i;
-	int		z;
+	int		c_i;
 
 	w_i = 0;
-	while (w_i < m_w)
+	while (w_i < map->map_w)
 	{
+		c_i = map->map_w * map->map_h + w_i;
 		element_comma = ft_split(line_element[w_i], ',');
 		if (element_comma == NULL)
 			error_exit("ft_split fail");
-		map[m_w * h_i + w_i].x = w_i;
-		map[m_w * h_i + w_i].y = h_i;
-		z = ft_atoi(element_comma[0]);
-		map[m_w * h_i + w_i].z = z;
+		map->map[c_i].x = w_i;
+		map->map[c_i].y = map->map_h;
+		map->map[c_i].z = ft_atoi(element_comma[0]);
 		if (element_comma[1] != NULL)
-			map[m_w * h_i + w_i].trgb = hex_to_int(element_comma[1]);
+			map->map[c_i].trgb = hex_to_int(element_comma[1]);
 		else
-			map[m_w * h_i + w_i].trgb = -1;
+			map->map[c_i].trgb = -1;
 		ft_double_free(element_comma);
 		w_i++;
 	}
 }
 
-void	map_to_point(t_point *map, int map_fd, int m_w, int m_h)
+void	map_to_point(t_map *map, int map_fd)
 {
 	char	*line;
 	char	**line_element;
 	char	**element_comma;
-	int		h_i;
-	int		w_i;
+	int		i;
 
-	h_i = 0;
-	while (h_i < m_h)
+	i = 0;
+	line = get_next_line(map_fd);
+	while (line != NULL)
 	{
-		line = get_next_line(map_fd);
 		line_element = ft_split(line, ' ');
 		if (line_element == NULL)
 			error_exit("ft_split fail");
-		init_point(map, m_w, h_i, line_element);
+		if (i == 0)
+		{
+			while (line_element[i] != NULL)
+				i++;
+			map->map_w = i;
+		}
+		init_point(map, line_element);
+		map->map_h++;
 		free(line);
 		ft_double_free(line_element);
-		h_i++;
+		line = get_next_line(map_fd);
 	}
 }
 
@@ -95,15 +99,12 @@ void	parse_map(t_map *map, char *map_path)
 {
 	int		map_fd;
 
-	map_fd = open(map_path, O_RDONLY);
-	if (map_fd == -1)
-		error_exit("map file open fail");
-	map_w_h_check(map_fd, &(map->map_w), &(map->map_h));
-	close(map_fd);
 	map->map = (t_point *)malloc(sizeof(t_point) * map->map_w * map->map_h);
+	map->map_w = 0;
+	map->map_h = 0;
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");
-	map_to_point(map->map, map_fd, map->map_w, map->map_h);
+	map_to_point(map, map_fd);
 	close(map_fd);
 }

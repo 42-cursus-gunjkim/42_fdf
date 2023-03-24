@@ -6,11 +6,11 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 15:15:58 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:26:40 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:58:24 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/exit.h"
+#include "../include/mlx_util.h"
 
 void	error_exit(char *err_msg)
 {

@@ -6,11 +6,11 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:55:10 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 22:58:24 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/graphics.h"
+#include "../include/mlx_util.h"
 #include "../include/hook.h"
 
 void	init_camera(void *mlx, t_map *map, t_camera *camera)
@@ -27,10 +27,13 @@ void	init_camera(void *mlx, t_map *map, t_camera *camera)
 	|| (map->map_h * f_tmp < 0.3 * DEFAULT_H))
 		f_tmp++;
 	camera->f = f_tmp;
+	camera->x_a = 0;
+	camera->y_a = 0;
+	camera->z_a = 0;
 	camera->win_w = DEFAULT_W;
 	camera->win_h = DEFAULT_H;
-	camera->offset_w = (int)(camera->win_w / 2 - (map->map_w / 2) * f_tmp);
-	camera->offset_h = (int)(camera->win_h / 2 - (map->map_h / 2) * f_tmp);
+	camera->offset_w = (int)(camera->win_w / 2);
+	camera->offset_h = (int)(camera->win_h / 2);
 }
 
 int	main(int argc, char *argv[])

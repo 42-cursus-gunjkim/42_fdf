@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:22:54 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 14:55:59 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 23:21:46 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,22 @@ int	key_hooks(int keycode, t_vars *var)
 	if (keycode == KEY_ESC)
 		error_clear_exit(var);
 	else if (keycode == KEY_UP)
-		(var->camera.offset_h)--;
+		var->camera.offset_h -= 5;
 	else if (keycode == KEY_DOWN)
-		(var->camera.offset_h)++;
+		var->camera.offset_h += 5;
 	else if (keycode == KEY_RIGHT)
-		(var->camera.offset_w)++;
+		var->camera.offset_w += 5;
 	else if (keycode == KEY_LEFT)
-		(var->camera.offset_w)--;
+		var->camera.offset_w -= 5;
 	else if (keycode == ZOOM_IN)
 		(var->camera.f)++;
-	else if (keycode == ZOOM_OUT)
+	else if (keycode == ZOOM_OUT && var->camera.f > 1)
 		(var->camera.f)--;
 	else if (keycode == ROTATE_X)
-		rotate_x(&(var->map));
+		var->camera.x_a += 0.1;
 	else if (keycode == ROTATE_Z)
-		rotate_z(&(var->map));
+		var->camera.z_a += 0.1;
+	else if (keycode == ROTATE_Y)
+		var->camera.y_a += 0.1;
 	return (1);
 }
