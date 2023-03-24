@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   ft_abs.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 15:15:58 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 20:25:53 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/24 14:16:22 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/24 14:16:44 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/error.h"
-
-void	error_exit(char *err_msg)
+int	ft_abs(int num)
 {
-	perror(err_msg);
-	exit(-1);
+	if (num < 0)
+		return (-num);
+	else
+		return (num);
 }

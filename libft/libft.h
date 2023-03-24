@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/09 17:38:37 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/14 16:35:58 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 14:16:59 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ int		ft_printf(const char *str, ...);
 void	ft_swap(int *a, int *b);
 void	ft_double_free(char **argv);
 char	**ft_split_white(char const *s);
+int		ft_abs(int num);
 
 #endif

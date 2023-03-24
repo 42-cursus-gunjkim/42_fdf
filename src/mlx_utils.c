@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 21:22:21 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 14:09:59 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
-#include "../include/color.h"
+#include "../include/mlx_util.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

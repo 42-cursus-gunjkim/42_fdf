@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   util.h                                             :+:      :+:    :+:   */
+/*   exit.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 16:27:32 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 20:26:29 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/20 15:12:52 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/24 14:23:15 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTIL_H
-# define UTIL_H
+#ifndef EXIT_H
+# define EXIT_H
 
-# include "color.h"
+# include <stdio.h>
+# include <stdlib.h>
+# include "mlx_util.h"
 
-int	hex_to_int(char *hex);
+void	error_exit(char *err_msg);
+void	error_clear_exit(t_vars *var);
 
 #endif

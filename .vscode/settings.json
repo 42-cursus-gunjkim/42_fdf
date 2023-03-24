@@ -11,6 +11,9 @@
 		"fdf.h": "c",
 		"error.h": "c",
 		"mlx.h": "c",
-		"hook.h": "c"
+		"hook.h": "c",
+		"exit.h": "c",
+		"stdlib.h": "c",
+		"mlx_util.h": "c"
 	}
 }

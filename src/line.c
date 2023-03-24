@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 21:10:28 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 14:16:15 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
-#include "../include/util.h"
+#include "../include/mlx_util.h"
 
 void	update_var_high(int *d, t_pixel *tmp, int dx, int dy)
 {
@@ -109,7 +108,7 @@ void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 {
-	if (abs(p1->y - p0->y) < abs(p1->x - p0->x))
+	if (ft_abs(p1->y - p0->y) < ft_abs(p1->x - p0->x))
 	{
 		if (p0->x > p1->x)
 			draw_line_low(p1, p0, camera, data);

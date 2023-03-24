@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   util.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:27:02 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 20:26:27 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 13:24:11 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/util.h"
-#include "../include/fdf.h"
+#include "../include/color.h"
 
 int	get_hex_value(char c)
 {

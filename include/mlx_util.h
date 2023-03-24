@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.h                                              :+:      :+:    :+:   */
+/*   mlx_util.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 15:05:27 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 22:38:30 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/24 14:54:31 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FDF_H
-# define FDF_H
+#ifndef MLX_UTIL_H
+# define MLX_UTIL_H
 
-# include "error.h"
-# include "../libft/libft.h"
-# include "../mlx/mlx.h"
 # include "parser.h"
+# include "color.h"
+# include "../mlx/mlx.h"
+# include "../libft/libft.h"
 # include <math.h>
-# include <stdio.h>
-# include <stdlib.h>
 
 # define DEFAULT_W 1500
 # define DEFAULT_H 900
@@ -59,16 +57,12 @@ typedef struct s_vars
 	t_data		data;
 }	t_vars;
 
-# define KEY_ESC 53
-
+void	rotate_x(t_map *map);
+void	rotate_z(t_map *map);
+int		is_scope(int x, int y, t_camera *camera);
 int		get_abs_max(t_map *map);
 int		get_height_color(int z, int abs_max);
-int		is_scope(int x, int y, t_camera *camera);
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	get_beauty(t_pixel *p0, t_pixel *p1, t_pixel *tmp);
-void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
-t_pixel	*isomeric(t_map *map, t_camera *camera);
-int		render(t_vars *var);
-int		key_hooks(int keycode, t_vars *vars);
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 
 #endif

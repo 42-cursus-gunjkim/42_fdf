@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 22:15:12 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 14:55:10 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../include/graphics.h"
+#include "../include/hook.h"
 
 void	init_camera(void *mlx, t_map *map, t_camera *camera)
 {
@@ -36,7 +37,7 @@ int	main(int argc, char *argv[])
 {
 	t_vars		var;
 
-	if (argc < 2)
+	if (argc != 2)
 		error_exit("Too few arguments");
 	parse_map(&(var.map), argv[1]);
 	var.mlx = mlx_init();

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphic.c                                          :+:      :+:    :+:   */
+/*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:14:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/23 22:48:09 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/24 15:01:40 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/fdf.h"
+#include "../include/graphics.h"
+#include "../include/exit.h"
 
 t_pixel	*isomeric(t_map *map, t_camera *camera)
 {
@@ -39,6 +40,38 @@ t_pixel	*isomeric(t_map *map, t_camera *camera)
 		i++;
 	}
 	return (iso_img);
+}
+
+void	rotate_x(t_map *map)
+{
+	int	i;
+	int	max_i;
+
+	max_i = map->map_w * map->map_h;
+	i = 0;
+	while (i < max_i)
+	{
+		map->map[i].x = (int)(map->map[i].x * cos(1) - map->map[i].y * sin(1));
+		map->map[i].y = (int)(map->map[i].x * sin(1) + map->map[i].y * cos(1));
+		i++;
+	}
+}
+
+void	rotate_z(t_map *map)
+{
+	int		i;
+	int		max_i;
+	float	a;
+
+	a = 0.0174533;
+	max_i = map->map_w * map->map_h;
+	i = 0;
+	while (i < max_i)
+	{
+		map->map[i].x = (int)(map->map[i].x * cos(a) - map->map[i].y * sin(a));
+		map->map[i].y = (int)(map->map[i].x * sin(a) + map->map[i].y * cos(a));
+		i++;
+	}
 }
 
 int	render(t_vars *var)

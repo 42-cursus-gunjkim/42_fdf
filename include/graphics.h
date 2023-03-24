@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.h                                           :+:      :+:    :+:   */
+/*   graphics.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 14:17:03 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 13:23:38 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/24 13:28:54 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/24 14:08:46 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSER_H
-# define PARSER_H
+#ifndef GRAPHICS_H
+# define GRAPHICS_H
 
-# include <fcntl.h>
+# include "parser.h"
+# include "mlx_util.h"
 
-typedef struct s_point
-{
-	int	x;
-	int	y;
-	int	z;
-	int	trgb;
-}	t_point;
-
-typedef struct s_map
-{
-	t_point	*map;
-	int		map_w;
-	int		map_h;
-}	t_map;
-
-void	parse_map(t_map *map, char *map_path);
-int		hex_to_int(char *hex);
+void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
+int		render(t_vars *var);
 
 #endif
