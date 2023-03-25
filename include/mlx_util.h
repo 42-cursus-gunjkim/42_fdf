@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:14:46 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:55:44 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ typedef struct s_point
 typedef struct s_map
 {
 	t_point	*map;
-	int		map_w;
-	int		map_h;
+	int		m_w;
+	int		m_h;
 }	t_map;
 
 typedef struct s_data {
-	void	*img_plane;
+	void	*i_p;
 	char	*addr;
 	int		bpp;
 	int		line_length;
@@ -59,12 +59,12 @@ typedef struct s_pixel {
 
 typedef struct s_camera {
 	int		f;
-	int		win_w;
-	int		win_h;
-	int		map_w;
-	int		map_h;
-	int		offset_w;
-	int		offset_h;
+	int		w_w;
+	int		w_h;
+	int		m_w;
+	int		m_h;
+	int		o_w;
+	int		o_h;
 	float	x_a;
 	float	y_a;
 	float	z_a;
@@ -87,6 +87,7 @@ typedef struct s_line
 	int	step_x;
 	int	step_y;
 	int	err;
+	int	err_d;
 }	t_line;
 
 void	rotate_x(t_pixel *p, float a);

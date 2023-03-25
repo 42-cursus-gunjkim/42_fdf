@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 17:58:24 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:33:20 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ void	init_point(t_map *map, char **line_element)
 	int		c_i;
 
 	w_i = 0;
-	while (w_i < map->map_w)
+	while (w_i < map->m_w)
 	{
-		c_i = map->map_w * map->map_h + w_i;
+		c_i = map->m_w * map->m_h + w_i;
 		element_comma = ft_split(line_element[w_i], ',');
 		if (element_comma == NULL)
 			error_exit("ft_split fail");
 		map->map[c_i].x = w_i;
-		map->map[c_i].y = map->map_h;
+		map->map[c_i].y = map->m_h;
 		map->map[c_i].z = ft_atoi(element_comma[0]);
 		if (element_comma[1] != NULL)
 			map->map[c_i].trgb = hex_to_int(element_comma[1]);
@@ -85,10 +85,10 @@ void	map_to_point(t_map *map, int map_fd)
 		{
 			while (line_element[i] != NULL)
 				i++;
-			map->map_w = i;
+			map->m_w = i;
 		}
 		init_point(map, line_element);
-		map->map_h++;
+		map->m_h++;
 		free(line);
 		ft_double_free(line_element);
 		line = get_next_line(map_fd);
@@ -99,9 +99,9 @@ void	parse_map(t_map *map, char *map_path)
 {
 	int		map_fd;
 
-	map->map = (t_point *)malloc(sizeof(t_point) * map->map_w * map->map_h);
-	map->map_w = 0;
-	map->map_h = 0;
+	map->map = (t_point *)malloc(sizeof(t_point) * map->m_w * map->m_h);
+	map->m_w = 0;
+	map->m_h = 0;
 	map_fd = open(map_path, O_RDONLY);
 	if (map_fd == -1)
 		error_exit("map file open fail");

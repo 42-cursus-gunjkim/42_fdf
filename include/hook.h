@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:02:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 22:58:22 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:49:58 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ROTATE_X 7
 # define ROTATE_Z 6
 # define ROTATE_Y 16
+# define KEY_AMP 4
 
 int		key_hooks(int keycode, t_vars *vars);
 

@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:14:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:16:40 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:56:04 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,15 @@ void	isomeric(t_pixel *img, t_camera *camera, int i_max)
 {
 	int		i;
 	int		tmp_x;
+	float	a;
 
 	i = 0;
+	a = 0.523599;
 	while (i < i_max)
 	{
 		tmp_x = img[i].x;
-		img[i].x = ((tmp_x - img[i].y) * cos(0.523599)) + camera->offset_w;
-		img[i].y = (-img[i].z) + (tmp_x + img[i].y) * sin(0.523599) + camera->offset_h;
+		img[i].x = ((tmp_x - img[i].y) * cos(a)) + camera->o_w;
+		img[i].y = (-img[i].z) + (tmp_x + img[i].y) * sin(a) + camera->o_h;
 		i++;
 	}
 }
@@ -37,19 +39,17 @@ void	projection(t_pixel *img, t_map *map, t_camera *camera)
 
 	i = 0;
 	get_min_max(map, &min, &max);
-	i_max = map->map_w * map->map_h;
+	i_max = map->m_w * map->m_h;
 	while (i < i_max)
 	{
-		img[i].x = map->map[i].x * camera->f - (map->map_w * camera->f)/2;
-		img[i].y = map->map[i].y * camera->f - (map->map_h * camera->f)/2;
+		img[i].x = map->map[i].x * camera->f - (map->m_w * camera->f) / 2;
+		img[i].y = map->map[i].y * camera->f - (map->m_h * camera->f) / 2;
 		img[i].z = map->map[i].z * camera->f;
 		img[i].h = map->map[i].z;
 		tmp_x = img[i].x;
 		rotate_x(&img[i], camera->x_a);
 		rotate_y(&img[i], camera->y_a);
 		rotate_z(&img[i], camera->z_a);
-		img[i].x = ((tmp_x - img[i].y) * cos(0.523599)) + camera->offset_w;
-		img[i].y = (-img[i].z) + (tmp_x + img[i].y) * sin(0.523599) + camera->offset_h;
 		if (map->map[i].trgb != -1)
 			img[i].trgb = map->map[i].trgb;
 		else

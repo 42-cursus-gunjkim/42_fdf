@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:18:23 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:45:52 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 int	is_scope(int x, int y, t_camera *camera)
 {
-	if (x < 0 || x >= camera->win_w)
+	if (x < 0 || x >= camera->w_w)
 		return (0);
-	if (y < 0 || y >= camera->win_h)
+	if (y < 0 || y >= camera->w_h)
 		return (0);
 	return (1);
 }
@@ -37,7 +37,7 @@ void	get_min_max(t_map *map, int *min, int *max)
 	int	t_min;
 
 	i = 0;
-	num = map->map_w * map->map_h;
+	num = map->m_w * map->m_h;
 	t_max = map->map[i].z;
 	t_min = map->map[i].z;
 	while (i < num)
@@ -52,34 +52,41 @@ void	get_min_max(t_map *map, int *min, int *max)
 	*min = t_min;
 }
 
-int	render(t_vars *var)
+void	draw_img(t_pixel *img, t_map *map, t_camera *camera, t_data *data)
 {
 	int		w_i;
 	int		h_i;
 	int		m_i;
-	t_pixel	*img;
 
 	h_i = 0;
-	projection(var->img, &(var->map), &(var->camera));
-	img = var->img;
-	var->data.img_plane = mlx_new_image(var->mlx, var->camera.win_w, var->camera.win_h);
-	var->data.addr = mlx_get_data_addr(var->data.img_plane, &(var->data.bpp), \
-	&(var->data.line_length), &(var->data.endian));
-	while (h_i < var->map.map_h)
+	while (h_i < map->m_h)
 	{
 		w_i = 0;
-		m_i = h_i * var->map.map_w;
-		while (w_i < var->map.map_w)
+		m_i = h_i * map->m_w;
+		while (w_i < map->m_w)
 		{
-			if (m_i == 0 || m_i % var->map.map_w != var->map.map_w - 1)
-				draw_line(&img[m_i], &img[m_i + 1], &(var->camera), &(var->data));
-			if (h_i != var->map.map_h - 1)
-				draw_line(&img[m_i], &img[m_i + var->map.map_w], &(var->camera), &(var->data));
+			if (m_i == 0 || m_i % map->m_w != map->m_w - 1)
+				draw_line(&img[m_i], &img[m_i + 1], camera, data);
+			if (h_i != map->m_h - 1)
+				draw_line(&img[m_i], &img[m_i + map->m_w], camera, data);
 			w_i++;
 			m_i++;
 		}
 		h_i++;
 	}
-	mlx_put_image_to_window(var->mlx, var->win, var->data.img_plane, 0, 0);
+}
+
+int	render(t_vars *var)
+{
+	t_pixel	*img;
+
+	projection(var->img, &(var->map), &(var->camera));
+	isomeric(var->img, &var->camera, var->map.m_h * var->map.m_w);
+	img = var->img;
+	var->data.i_p = mlx_new_image(var->mlx, var->camera.w_w, var->camera.w_h);
+	var->data.addr = mlx_get_data_addr(var->data.i_p, &(var->data.bpp), \
+	&(var->data.line_length), &(var->data.endian));
+	draw_img(var->img, &var->map, &var->camera, &var->data);
+	mlx_put_image_to_window(var->mlx, var->win, var->data.i_p, 0, 0);
 	return (1);
 }
