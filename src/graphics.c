@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:14:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:56:04 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:32:32 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	isomeric(t_pixel *img, t_camera *camera, int i_max)
 {
 	int		i;
-	int		tmp_x;
+	float	tmp_x;
 	float	a;
 
 	i = 0;
@@ -23,15 +23,28 @@ void	isomeric(t_pixel *img, t_camera *camera, int i_max)
 	while (i < i_max)
 	{
 		tmp_x = img[i].x;
-		img[i].x = ((tmp_x - img[i].y) * cos(a)) + camera->o_w;
-		img[i].y = (-img[i].z) + (tmp_x + img[i].y) * sin(a) + camera->o_h;
+		img[i].x = round(((tmp_x - img[i].y) * cos(a)) + camera->o_w);
+		img[i].y = round((-img[i].z) + (tmp_x + img[i].y) * sin(a) \
+		+ camera->o_h);
+		i++;
+	}
+}
+
+void	parallel(t_pixel *img, t_camera *camera, int i_max)
+{
+	int	i;
+
+	i = 0;
+	while (i < i_max)
+	{
+		img[i].x = round(img[i].x + camera->o_w);
+		img[i].y = round(img[i].y + camera->o_h);
 		i++;
 	}
 }
 
 void	projection(t_pixel *img, t_map *map, t_camera *camera)
 {
-	int		tmp_x;
 	int		i_max;
 	int		i;
 	int		max;
@@ -46,7 +59,6 @@ void	projection(t_pixel *img, t_map *map, t_camera *camera)
 		img[i].y = map->map[i].y * camera->f - (map->m_h * camera->f) / 2;
 		img[i].z = map->map[i].z * camera->f;
 		img[i].h = map->map[i].z;
-		tmp_x = img[i].x;
 		rotate_x(&img[i], camera->x_a);
 		rotate_y(&img[i], camera->y_a);
 		rotate_z(&img[i], camera->z_a);
@@ -60,7 +72,7 @@ void	projection(t_pixel *img, t_map *map, t_camera *camera)
 
 void	rotate_x(t_pixel *p, float a)
 {
-	int	tmp_y;
+	float	tmp_y;
 
 	tmp_y = p->y;
 	p->y = (tmp_y * cos(a) + p->z * sin(a));
@@ -69,11 +81,11 @@ void	rotate_x(t_pixel *p, float a)
 
 void	rotate_y(t_pixel *p, float a)
 {
-	int	tmp_x;
+	float	tmp_x;
 
-		tmp_x = p->x;
-		p->x = (tmp_x * cos(a) - p->z * sin(a));
-		p->z = (-tmp_x * sin(a) + p->z * cos(a));
+	tmp_x = p->x;
+	p->x = (tmp_x * cos(a) - p->z * sin(a));
+	p->z = (-tmp_x * sin(a) + p->z * cos(a));
 }
 
 void	rotate_z(t_pixel *p, float a)

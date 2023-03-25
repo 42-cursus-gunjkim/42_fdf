@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:45:52 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:36:55 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ int	render(t_vars *var)
 	t_pixel	*img;
 
 	projection(var->img, &(var->map), &(var->camera));
-	isomeric(var->img, &var->camera, var->map.m_h * var->map.m_w);
+	if (var->camera.method == 1)
+		isomeric(var->img, &var->camera, var->map.m_h * var->map.m_w);
+	else if (var->camera.method == 2)
+		parallel(var->img, &var->camera, var->map.m_h * var->map.m_w);
 	img = var->img;
 	var->data.i_p = mlx_new_image(var->mlx, var->camera.w_w, var->camera.w_h);
 	var->data.addr = mlx_get_data_addr(var->data.i_p, &(var->data.bpp), \

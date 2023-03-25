@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:55:44 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:35:53 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_pixel {
-	int		x;
-	int		y;
-	int		z;
+	float	x;
+	float	y;
+	float	z;
 	int		h;
 	float	r;
 	float	g;
@@ -68,6 +68,7 @@ typedef struct s_camera {
 	float	x_a;
 	float	y_a;
 	float	z_a;
+	int		method;
 }	t_camera;
 
 typedef struct s_vars
@@ -103,6 +104,7 @@ void	get_color(t_pixel *p0, t_pixel *p1, t_pixel *tmp);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
 void	isomeric(t_pixel *img, t_camera *camera, int i_max);
+void	parallel(t_pixel *img, t_camera *camera, int i_max);
 void	projection(t_pixel *img, t_map *map, t_camera *camera);
 int		render(t_vars *var);
 

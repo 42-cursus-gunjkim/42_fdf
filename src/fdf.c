@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 18:55:58 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/26 00:36:22 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	init_camera(void *mlx, t_map *map, t_camera *camera)
 	camera->w_h = DEFAULT_H;
 	camera->o_w = (int)(camera->w_w / 2);
 	camera->o_h = (int)(camera->w_h / 2);
+	camera->method = 1;
 }
 
 int	main(int argc, char *argv[])
@@ -48,6 +49,7 @@ int	main(int argc, char *argv[])
 	init_camera(var.mlx, &(var.map), &(var.camera));
 	var.win = mlx_new_window(var.mlx, var.camera.w_w, var.camera.w_h, "fdf");
 	mlx_hook(var.win, 02, 1L << 0, key_hooks, &var);
+	mlx_hook(var.win, 17, 0, click_red_cross, &var);
 	mlx_loop_hook(var.mlx, render, &var);
 	mlx_loop(var.mlx);
 	free(var.img);
