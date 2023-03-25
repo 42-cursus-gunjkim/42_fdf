@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:22:54 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 23:21:46 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 17:58:20 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	key_hooks(int keycode, t_vars *var)
 {
+	printf("key pressed!\n");
 	if (keycode == KEY_ESC)
 		error_clear_exit(var);
 	else if (keycode == KEY_UP)

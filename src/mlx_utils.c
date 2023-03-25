@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 23:28:39 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:18:23 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,8 @@ int	render(t_vars *var)
 	t_pixel	*img;
 
 	h_i = 0;
-	img = centered_and_rotate(&(var->map), &(var->camera));
-	isomeric(img, &(var->camera), var->map.map_w * var->map.map_h);
+	projection(var->img, &(var->map), &(var->camera));
+	img = var->img;
 	var->data.img_plane = mlx_new_image(var->mlx, var->camera.win_w, var->camera.win_h);
 	var->data.addr = mlx_get_data_addr(var->data.img_plane, &(var->data.bpp), \
 	&(var->data.line_length), &(var->data.endian));
@@ -80,7 +80,6 @@ int	render(t_vars *var)
 		}
 		h_i++;
 	}
-	free(img);
 	mlx_put_image_to_window(var->mlx, var->win, var->data.img_plane, 0, 0);
 	return (1);
 }

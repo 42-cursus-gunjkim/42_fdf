@@ -6,124 +6,59 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 22:58:26 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 17:59:16 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mlx_util.h"
 
-void	update_var_high(int *d, t_pixel *tmp, int dx, int dy)
+void	line_init(t_pixel *p_cur, t_line *var, t_pixel *p0, t_pixel *p1)
 {
-	int	step;
-
-	step = 1;
-	if (dx < 0)
-	{
-		dx = -dx;
-		step = -1;
-	}
-	if (*d > 0)
-	{
-		tmp->x = tmp->x + step;
-		*d = *d + 2 * dx - 2 * dy;
-	}
-	else
-		*d = *d + 2 * dx;
-	tmp->y = tmp->y + 1;
-}
-
-void	update_var_low(int *d, t_pixel *tmp, int dx, int dy)
-{
-	int	step;
-
-	step = 1;
-	if (dy < 0)
-	{
-		dy = -dy;
-		step = -1;
-	}
-	if (*d > 0)
-	{
-		tmp->y = tmp->y + step;
-		*d = *d + 2 * (dy - dx);
-	}
-	else
-		*d = *d + 2 * dy;
-	tmp->x = tmp->x + 1;
-}
-
-void	draw_line_high(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
-{
-	int		dx;
-	int		dy;
-	t_pixel	tmp;
-	int		d;
-
-	tmp = *p0;
-	tmp.r = (tmp.trgb >> 16) & 0xFF;
-	tmp.g = (tmp.trgb >> 8) & 0xFF;
-	tmp.b = (tmp.trgb) & 0xFF;
-	dx = p1->x - p0->x;
-	dy = p1->y - p0->y;
-	if (dx < 0)
-		d = -2 * dx - dy;
-	else
-		d = 2 * dx - dy;
-	while (tmp.y < p1->y)
-	{
-		if (is_scope(tmp.x, tmp.y, camera))
-			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
-		update_var_high(&d, &tmp, dx, dy);
-		if (p0->h != p1->h)
-			get_color(p0, p1, &tmp);
-		else
-			tmp.trgb = p0->trgb;
-	}
-}
-
-void	draw_line_low(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
-{
-	int		dx;
-	int		dy;
-	t_pixel	tmp;
-	int		d;
-
-	tmp = *p0;
-	tmp.r = (tmp.trgb >> 16) & 0xFF;
-	tmp.g = (tmp.trgb >> 8) & 0xFF;
-	tmp.b = (tmp.trgb) & 0xFF;
-	dx = p1->x - p0->x;
-	dy = p1->y - p0->y;
-	if (dy < 0)
-		d = -2 * dy - dx;
-	else
-		d = 2 * dy - dx;
-	while ((tmp.x < p1->x))
-	{
-		if (is_scope(tmp.x, tmp.y, camera))
-			my_mlx_pixel_put(data, tmp.x, tmp.y, tmp.trgb);
-		update_var_low(&d, &tmp, dx, dy);
-		if (p0->h != p1->h)
-			get_color(p0, p1, &tmp);
-		else
-			tmp.trgb = p0->trgb;
-	}
+	var->dx = ft_abs(p0->x - p1->x);
+	var->dy = -ft_abs(p0->y - p1->y);
+	var->step_x = -1;
+	if (p0->x < p1->x)
+		var->step_x = 1;
+	var->step_y = -1;
+	if (p0->y < p1->y)
+		var->step_y = 1;
+	var->err =var->dx + var->dy;
+	p_cur->x = p0->x;
+	p_cur->y = p0->y;
+	p_cur->trgb = p0->trgb;
+	p_cur->h = p0->trgb;
+	p_cur->r = (p_cur->trgb >> 16) & 0xFF;
+	p_cur->g = (p_cur->trgb >> 8) & 0xFF;
+	p_cur->b = (p_cur->trgb) & 0xFF;
 }
 
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 {
-	if (ft_abs(p1->y - p0->y) < ft_abs(p1->x - p0->x))
+	t_line	var;
+	t_pixel	p_cur;
+	int		err_d;
+
+	line_init(&p_cur, &var, p0, p1);
+	while (1)
 	{
-		if (p0->x > p1->x)
-			draw_line_low(p1, p0, camera, data);
+		if (is_scope(p_cur.x, p_cur.y, camera))
+			my_mlx_pixel_put(data, p_cur.x, p_cur.y, p_cur.trgb);
+		if (p_cur.x == p1->x && p_cur.y == p1->y)
+			break ;
+		err_d = var.err * 2;
+		if (err_d >= var.dy)
+		{
+			var.err += var.dy;
+			p_cur.x += var.step_x;
+		}
+		if (err_d <= var.dx)
+		{
+			var.err += var.dx;
+			p_cur.y += var.step_y;
+		}
+		if (p0->h != p1->h)
+			get_color(p0, p1, &p_cur);
 		else
-			draw_line_low(p0, p1, camera, data);
-	}
-	else
-	{
-		if (p0->y > p1->y)
-			draw_line_high(p1, p0, camera, data);
-		else
-			draw_line_high(p0, p1, camera, data);
+			p_cur.trgb = p0->trgb;
 	}
 }

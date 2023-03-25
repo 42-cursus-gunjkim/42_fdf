@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 23:28:51 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:14:46 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ typedef struct s_camera {
 	int		f;
 	int		win_w;
 	int		win_h;
+	int		map_w;
+	int		map_h;
 	int		offset_w;
 	int		offset_h;
 	float	x_a;
@@ -75,7 +77,17 @@ typedef struct s_vars
 	t_camera	camera;
 	t_map		map;
 	t_data		data;
+	t_pixel		*img;
 }	t_vars;
+
+typedef struct s_line
+{
+	int	dx;
+	int	dy;
+	int	step_x;
+	int	step_y;
+	int	err;
+}	t_line;
 
 void	rotate_x(t_pixel *p, float a);
 void	rotate_y(t_pixel *p, float a);
@@ -90,7 +102,7 @@ void	get_color(t_pixel *p0, t_pixel *p1, t_pixel *tmp);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
 void	isomeric(t_pixel *img, t_camera *camera, int i_max);
-t_pixel	*centered_and_rotate(t_map *map, t_camera *camera);
+void	projection(t_pixel *img, t_map *map, t_camera *camera);
 int		render(t_vars *var);
 
 #endif

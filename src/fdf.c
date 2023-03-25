@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/24 22:58:24 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/25 18:07:26 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	main(int argc, char *argv[])
 		error_exit("Too few arguments");
 	parse_map(&(var.map), argv[1]);
 	var.mlx = mlx_init();
+	var.img = (t_pixel *)malloc(sizeof(t_pixel) * var.map.map_w * var.map.map_h);
 	init_camera(var.mlx, &(var.map), &(var.camera));
 	var.win = mlx_new_window(var.mlx, var.camera.win_w, var.camera.win_h, "fdf");
 	mlx_hook(var.win, 02, 1L << 0, key_hooks, &var);
