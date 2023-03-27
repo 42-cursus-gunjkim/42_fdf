@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_util.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/26 00:35:53 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:33:47 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct s_vars
 {
 	void		*mlx;
 	void		*win;
+	t_pixel		*img;
 	t_camera	camera;
 	t_map		map;
 	t_data		data;
-	t_pixel		*img;
 }	t_vars;
 
 typedef struct s_line
@@ -97,7 +97,6 @@ void	rotate_z(t_pixel *p, float a);
 void	parse_map(t_map *map, char *map_path);
 void	error_exit(char *err_msg);
 void	error_clear_exit(t_vars *var);
-int		is_scope(int x, int y, t_camera *camera);
 void	get_min_max(t_map *map, int *min, int *max);
 int		get_height_color(int z, int min, int max);
 void	get_color(t_pixel *p0, t_pixel *p1, t_pixel *tmp);
@@ -105,7 +104,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
 void	isomeric(t_pixel *img, t_camera *camera, int i_max);
 void	parallel(t_pixel *img, t_camera *camera, int i_max);
-void	projection(t_pixel *img, t_map *map, t_camera *camera);
+void	check_w_h(t_map *map, char *map_path);
+void	map_to_point(t_map *map, char *map_path);
+
 int		render(t_vars *var);
 
 #endif

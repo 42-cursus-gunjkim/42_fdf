@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   line.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/25 23:57:25 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:33:41 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mlx_util.h"
+
+int	is_scope(int x, int y, t_camera *camera)
+{
+	if (x < 0 || x >= camera->w_w)
+		return (0);
+	if (y < 0 || y >= camera->w_h)
+		return (0);
+	return (1);
+}
 
 void	line_init(t_pixel *p_cur, t_line *var, t_pixel *p0, t_pixel *p1)
 {

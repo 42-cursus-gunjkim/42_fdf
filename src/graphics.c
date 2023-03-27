@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   graphics.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:14:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/26 00:32:32 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:33:40 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,33 +39,6 @@ void	parallel(t_pixel *img, t_camera *camera, int i_max)
 	{
 		img[i].x = round(img[i].x + camera->o_w);
 		img[i].y = round(img[i].y + camera->o_h);
-		i++;
-	}
-}
-
-void	projection(t_pixel *img, t_map *map, t_camera *camera)
-{
-	int		i_max;
-	int		i;
-	int		max;
-	int		min;
-
-	i = 0;
-	get_min_max(map, &min, &max);
-	i_max = map->m_w * map->m_h;
-	while (i < i_max)
-	{
-		img[i].x = map->map[i].x * camera->f - (map->m_w * camera->f) / 2;
-		img[i].y = map->map[i].y * camera->f - (map->m_h * camera->f) / 2;
-		img[i].z = map->map[i].z * camera->f;
-		img[i].h = map->map[i].z;
-		rotate_x(&img[i], camera->x_a);
-		rotate_y(&img[i], camera->y_a);
-		rotate_z(&img[i], camera->z_a);
-		if (map->map[i].trgb != -1)
-			img[i].trgb = map->map[i].trgb;
-		else
-			img[i].trgb = get_height_color(img[i].h, min, max);
 		i++;
 	}
 }

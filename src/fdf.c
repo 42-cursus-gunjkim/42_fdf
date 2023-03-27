@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gunjkim <gunjkim@student.42seoul.kr>       +#+  +:+       +#+        */
+/*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/26 00:36:22 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/27 17:38:22 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,40 @@ void	init_camera(void *mlx, t_map *map, t_camera *camera)
 	camera->method = 1;
 }
 
+void	var_init(t_vars *var, char *map_path)
+{
+	var->map.m_w = 0;
+	var->map.m_h = 0;
+	check_w_h(&(var->map), map_path);
+	var->map.map = (t_point *)malloc(sizeof(t_point) * \
+	var->map.m_w * var->map.m_h);
+	if (var->map.map == NULL)
+		error_exit("malloc fail");
+	map_to_point(&var->map, map_path);
+	var->mlx = mlx_init();
+	var->img = (t_pixel *)malloc(sizeof(t_pixel) * var->map.m_w * var->map.m_h);
+	init_camera(var->mlx, &(var->map), &(var->camera));
+	var->win = mlx_new_window(var->mlx, var->camera.w_w, var->camera.w_h, \
+	"fdf");
+}
+
+void	check_error(void)
+{
+	system("leaks --list -- fdf");
+}
+
 int	main(int argc, char *argv[])
 {
 	t_vars		var;
 
 	if (argc != 2)
 		error_exit("Too few arguments");
-	parse_map(&(var.map), argv[1]);
-	var.mlx = mlx_init();
-	var.img = (t_pixel *)malloc(sizeof(t_pixel) * var.map.m_w * var.map.m_h);
-	init_camera(var.mlx, &(var.map), &(var.camera));
-	var.win = mlx_new_window(var.mlx, var.camera.w_w, var.camera.w_h, "fdf");
+
+	atexit(check_error);
+	var_init(&var, argv[1]);
 	mlx_hook(var.win, 02, 1L << 0, key_hooks, &var);
 	mlx_hook(var.win, 17, 0, click_red_cross, &var);
 	mlx_loop_hook(var.mlx, render, &var);
 	mlx_loop(var.mlx);
-	free(var.img);
-	free(var.map.map);
 	return (0);
 }
