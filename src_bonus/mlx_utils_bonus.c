@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_utils.c                                        :+:      :+:    :+:   */
+/*   mlx_utils_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 15:05:01 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:18:04 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:24:05 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mlx_util.h"
+#include "../include_bonus/mlx_util_bonus.h"
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -89,7 +89,7 @@ void	projection(t_pixel *img, t_map *map, t_camera *camera)
 		if (map->map[i].trgb != -1)
 			img[i].trgb = map->map[i].trgb;
 		else
-			img[i].trgb = get_height_color(img[i].h, min, max, camera->c_code);
+			img[i].trgb = get_height_color(img[i].h, min, max);
 		i++;
 	}
 }

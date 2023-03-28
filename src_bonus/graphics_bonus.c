@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   graphics.c                                         :+:      :+:    :+:   */
+/*   graphics_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 16:14:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/27 23:16:44 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:23:41 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mlx_util.h"
+#include "../include_bonus/mlx_util_bonus.h"
 
 void	isomeric(t_pixel *img, t_camera *camera, int i_max)
 {

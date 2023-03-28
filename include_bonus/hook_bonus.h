@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.h                                             :+:      :+:    :+:   */
+/*   hook_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:02:43 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:15:33 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:24:19 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HOOK_H
-# define HOOK_H
+#ifndef HOOK_BONUS_H
+# define HOOK_BONUS_H
 
-# include "mlx_util.h"
+# include "mlx_util_bonus.h"
 
 # define KEY_ESC 53
 # define KEY_LEFT 123
@@ -34,8 +34,6 @@
 # define KEY_PAR3 21
 # define MAXIMIZE 46
 # define MINIMIZE 45
-# define EARTH_C 14
-# define BLUE_C 11
 
 int	key_hooks(int keycode, t_vars *vars);
 int	click_red_cross(t_vars *vars);

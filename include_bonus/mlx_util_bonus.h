@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mlx_util.h                                         :+:      :+:    :+:   */
+/*   mlx_util_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 13:54:56 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:12:34 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:24:31 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MLX_UTIL_H
-# define MLX_UTIL_H
+#ifndef MLX_UTIL_BONUS_H
+# define MLX_UTIL_BONUS_H
 
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -27,9 +27,6 @@
 # define PARAL_XY 2
 # define PARAL_YZ 3
 # define PARAL_XZ 4
-
-# define HIGH_B_LOW_R 1
-# define EARTH 2
 
 typedef struct s_point
 {
@@ -79,7 +76,6 @@ typedef struct s_camera {
 	float	z_a;
 	float	z_divisor;
 	int		method;
-	int		c_code;
 }	t_camera;
 
 typedef struct s_vars
@@ -109,8 +105,8 @@ void	parse_map(t_map *map, char *map_path);
 void	error_exit(char *err_msg);
 void	clear_exit(t_vars *var);
 void	get_min_max(t_map *map, int *min, int *max);
-int		get_height_color(int z, int min, int max, int c_code);
-void	get_color(t_pixel *p0, t_pixel *p1, t_pixel *tmp, int c_code);
+int		get_height_color(int z, int min, int max);
+void	get_color(t_pixel *p0, t_pixel *p1, t_pixel *tmp);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data);
 void	isomeric(t_pixel *img, t_camera *camera, int i_max);

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hook.c                                             :+:      :+:    :+:   */
+/*   hook_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 21:22:54 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:14:47 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:23:49 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/hook.h"
+#include "../include_bonus/hook_bonus.h"
 
 void	change_method(t_camera *camera, int method)
 {
@@ -76,10 +76,6 @@ int	key_hooks(int c, t_vars *var)
 		rotate_model(&var->camera, c);
 	else if (c == KEY_ISO || c == KEY_PAR1 || c == KEY_PAR2 || c == KEY_PAR3)
 		change_method(&(var->camera), c);
-	else if (c == EARTH_C)
-		var->camera.c_code = EARTH;
-	else if (c == BLUE_C)
-		var->camera.c_code = HIGH_B_LOW_R;
 	return (1);
 }
 

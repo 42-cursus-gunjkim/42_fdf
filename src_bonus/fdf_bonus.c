@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   fdf_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:17:49 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:13:02 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:23:34 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mlx_util.h"
-#include "../include/hook.h"
+#include "../include_bonus/mlx_util_bonus.h"
+#include "../include_bonus/hook_bonus.h"
 
 void	init_camera(void *mlx, t_map *map, t_camera *camera)
 {
@@ -37,7 +37,6 @@ void	init_camera(void *mlx, t_map *map, t_camera *camera)
 	camera->o_w = (int)(camera->w_w / 2);
 	camera->o_h = (int)(camera->w_h / 2);
 	camera->method = ISOMERIC;
-	camera->c_code = HIGH_B_LOW_R;
 }
 
 void	init_var(t_vars *var, char *map_path)

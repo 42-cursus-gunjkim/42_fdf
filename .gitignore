@@ -5,3 +5,4 @@ libft/*.o
 libft/libft.a
 .vscode
 .DS_Store
+README.md

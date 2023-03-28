@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_abs.c                                           :+:      :+:    :+:   */
+/*   exit_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 14:16:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/27 20:10:48 by gunjkim          ###   ########.fr       */
+/*   Created: 2023/03/20 15:15:58 by gunjkim           #+#    #+#             */
+/*   Updated: 2023/03/28 00:23:20 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_abs(int num)
+#include "../include_bonus/mlx_util_bonus.h"
+
+void	error_exit(char *err_msg)
 {
-	if (num < 0)
-		return (-num);
-	else
-		return (num);
+	perror(err_msg);
+	exit(-1);
+}
+
+void	clear_exit(t_vars *var)
+{
+	free(var->map.map);
+	free(var->img);
+	mlx_destroy_window(var->mlx, var->win);
+	exit(0);
 }

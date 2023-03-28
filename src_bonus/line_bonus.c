@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   line.c                                             :+:      :+:    :+:   */
+/*   line_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/07 14:43:22 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:12:43 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:23:58 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mlx_util.h"
+#include "../include_bonus/mlx_util_bonus.h"
 
 int	is_scope(int x, int y, t_camera *camera)
 {
@@ -62,7 +62,7 @@ void	draw_line(t_pixel *p0, t_pixel *p1, t_camera *camera, t_data *data)
 			p_cur.y += var.step_y;
 		}
 		if (p0->h != p1->h)
-			get_color(p0, p1, &p_cur, camera->c_code);
+			get_color(p0, p1, &p_cur);
 	}
 }
 

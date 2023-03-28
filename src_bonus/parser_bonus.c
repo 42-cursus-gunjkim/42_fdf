@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:16:41 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/03/28 03:18:28 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/03/28 00:24:12 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mlx_util.h"
+#include "../include_bonus/mlx_util_bonus.h"
 
 int	get_hex_value(char c)
 {
@@ -58,11 +58,10 @@ void	init_point(t_map *map, char **line_element, int h_i)
 		map->map[c_i].x = w_i;
 		map->map[c_i].y = h_i;
 		map->map[c_i].z = ft_atoi(element_comma[0]);
-		// if (element_comma[1] != NULL)
-		// 	map->map[c_i].trgb = hex_to_int(element_comma[1]);
-		// else
-		// 	map->map[c_i].trgb = -1;
-		map->map[c_i].trgb = -1;
+		if (element_comma[1] != NULL)
+			map->map[c_i].trgb = hex_to_int(element_comma[1]);
+		else
+			map->map[c_i].trgb = -1;
 		ft_double_free(element_comma);
 		w_i++;
 	}
